@@ -29,7 +29,8 @@ export const Data = ({children,selectedCountry}) => {
         async function fetchData() {
             const response = await fetch('https://api.covid19api.com/summary');
             const data = await response.json();
-            setFetchedCountries(data.Countries.map(country=>country.Slug));
+            const countriesList = await data.Countries.map(country=>country.Slug)
+            setFetchedCountries(countriesList);
         }
         fetchData();
     },[setFetchedCountries]);
@@ -64,7 +65,6 @@ export const Data = ({children,selectedCountry}) => {
                 const response = await fetch('https://api.covid19api.com/summary');
                 const data = await response.json();
                 const selectedDataSet = await data.Countries.filter(item => item.Slug === selectedCountry);
-                console.log(selectedDataSet)
                 setData({   totalConfirmed: `${selectedDataSet[0].TotalConfirmed}`,
                             totalRecovered: `${selectedDataSet[0].TotalRecovered}`,
                             totalDeaths: `${selectedDataSet[0].TotalDeaths}`,

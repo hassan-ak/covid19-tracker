@@ -1,0 +1,35 @@
+.chartsContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 50vw;
+    border: 1px dotted gray;
+    border-radius: 20px;
+    padding-bottom: 10px;
+    margin-top: 30px;
+}
+
+@media(max-width: 640px){
+    .chartsContainer{
+        width: 60vw
+    }
+}
+
+@media(max-width: 533px){
+    .chartsContainer{
+        width: 70vw
+    }
+}
+
+@media(max-width: 460px){
+    .chartsContainer{
+        width: 80vw
+    }
+}
+
+@media(max-width: 405px){
+    .chartsContainer{
+        width: 90vw
+    }
+}

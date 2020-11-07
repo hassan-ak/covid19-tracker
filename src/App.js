@@ -6,6 +6,7 @@ import Header from './components/header/Header';
 import  TitleImage  from "./components/titleImage/TitleImage";
 import { Cards } from './components/cards/Cards';
 import { CountryPicker } from './components/countryPicker/CountryPicker';
+import { Charts } from './components/charts/Charts';
 import Footer from './components/footer/Footer';
 
 // Function Component Imports
@@ -32,6 +33,7 @@ function App() {
         <Data selectedCountry={selectedCountry}>
           <Cards></Cards>
           <CountryPicker receiveValue={receiveCountryValue}></CountryPicker>
+          <Charts></Charts>
         </Data>
       </div>
       <Footer></Footer>
