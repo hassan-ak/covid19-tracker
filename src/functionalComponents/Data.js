@@ -2,10 +2,13 @@
 import React, { useEffect , useState } from 'react';
 
 // Data Context Imports
-import DataContext from './DataContext'
+import DataContext from './DataContext';
 
 // Data Function
 export const Data = ({children}) => {
+
+    // UseState for if Fetching data
+    const [isFetching, setFetching] = useState(false);
 
     // Define Variables Using useState
     const [data, setData] = useState({  totalConfirmed:0,
@@ -21,6 +24,7 @@ export const Data = ({children}) => {
     // useEffect Hooks to use fetchData
     useEffect(() => {
             async function fetchData() {
+                setFetching(true);
                 const response = await fetch('https://api.covid19api.com/summary');
                 const data = await response.json();
                 setData({   totalConfirmed: `${data.Global.TotalConfirmed}`,
@@ -32,6 +36,7 @@ export const Data = ({children}) => {
                             dated: `${data.Date}`,
                             country:"Global"
                 })
+                setFetching(false); 
             }
             fetchData();
     },[1]);
@@ -40,6 +45,7 @@ export const Data = ({children}) => {
     return(
         <DataContext.Provider
             value = {{data,
+                        isFetching,
                       }}>
                 {children}
         </DataContext.Provider>
