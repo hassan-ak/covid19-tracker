@@ -1,5 +1,5 @@
 // React Imports
-import React from 'react';
+import React, { useContext } from 'react';
 
 // Material UI Imports
 import {Card, CardContent, Typography, Grid} from '@material-ui/core';
@@ -10,9 +10,16 @@ import Countup from 'react-countup';
 // Styles Imports
 import './Cards.css'
 
+// Functional Components Imports
+import DataContext from '../../functionalComponents/DataContext';
 
 // Function for UntilNowCards
 export const UntilNowCard = () => {
+
+    // use Data from Data Context
+    const context = useContext(DataContext);
+    console.log(context)
+
     return (
         <div className="container">
             <h3>Summary</h3>
