@@ -1,9 +1,9 @@
 // React Imports
 import React from 'react';
-import { LineChart } from './LineChart';
 
 // Component Imports
 import { PieChart } from './PieChart';
+import { LineChart } from './LineChart';
 
 export const Charts = () => {
     return (
