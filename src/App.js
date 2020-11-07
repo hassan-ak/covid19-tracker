@@ -1,3 +1,6 @@
+// React Imports
+import { useState } from 'react';
+
 // Components Import
 import Header from './components/header/Header';
 import  TitleImage  from "./components/titleImage/TitleImage";
@@ -12,14 +15,23 @@ import { Data } from './functionalComponents/Data';
 import './App.css';
 
 function App() {
+
+  // const for selected country from country Picker
+  const [selectedCountry, setSelectedCountry] = useState("global")
+
+  // function to set value of selected country it also goes as props to country picker
+  async function receiveCountryValue(value) {
+    setSelectedCountry(value)
+  }
+
   return (
     <div>
       <Header></Header>
       <TitleImage></TitleImage>
       <div className="container">
-        <Data>
+        <Data selectedCountry={selectedCountry}>
           <Cards></Cards>
-          <CountryPicker></CountryPicker>
+          <CountryPicker receiveValue={receiveCountryValue}></CountryPicker>
         </Data>
       </div>
       <Footer></Footer>

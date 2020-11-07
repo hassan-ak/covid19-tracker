@@ -5,7 +5,7 @@ import React, { useEffect , useState } from 'react';
 import DataContext from './DataContext';
 
 // Data Function
-export const Data = ({children}) => {
+export const Data = ({children,selectedCountry}) => {
 
     // UseState for if Fetching data
     const [isFetching, setFetching] = useState(false);
