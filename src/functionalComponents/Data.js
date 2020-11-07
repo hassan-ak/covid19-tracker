@@ -13,7 +13,7 @@ export const Data = ({children,selectedCountry}) => {
     // Usestate for Countries List
     const [fetchedCountries, setFetchedCountries] = useState([]);
 
-    // Define Variables Using useState
+    // Define Variables Using useState (daily data and summary)
     const [data, setData] = useState({  totalConfirmed:0,
                                         totalRecovered:0,
                                         totalDeaths:0,
@@ -34,8 +34,14 @@ export const Data = ({children,selectedCountry}) => {
         fetchData();
     },[setFetchedCountries]);
 
+    // Function to Capatilize first letter of country name
+    function capitalize_Words(str){
+        return str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+    }    
+
     // useEffect Hooks to use fetchData (tilldate and today)
     useEffect(() => {
+        if ((selectedCountry === "global")) {
             async function fetchData() {
                 setFetching(true);
                 const response = await fetch('https://api.covid19api.com/summary');
@@ -52,7 +58,27 @@ export const Data = ({children,selectedCountry}) => {
                 setFetching(false); 
             }
             fetchData();
-    },[1]);
+        } else {
+            async function fetchData() {
+                setFetching(true);
+                const response = await fetch('https://api.covid19api.com/summary');
+                const data = await response.json();
+                const selectedDataSet = await data.Countries.filter(item => item.Slug === selectedCountry);
+                console.log(selectedDataSet)
+                setData({   totalConfirmed: `${selectedDataSet[0].TotalConfirmed}`,
+                            totalRecovered: `${selectedDataSet[0].TotalRecovered}`,
+                            totalDeaths: `${selectedDataSet[0].TotalDeaths}`,
+                            newConfirmed: `${selectedDataSet[0].NewConfirmed}`,
+                            newRecovered: `${selectedDataSet[0].NewRecovered}`,
+                            newDeaths: `${selectedDataSet[0].NewDeaths}`,
+                            dated: `${selectedDataSet[0].Date}`,
+                            country:`${capitalize_Words(selectedCountry.replaceAll('-',' '))}`,
+                })
+                setFetching(false); 
+            }
+            fetchData();
+        }
+    },[selectedCountry]);
 
 
     return(
