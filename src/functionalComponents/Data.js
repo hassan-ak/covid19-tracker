@@ -23,6 +23,20 @@ export const Data = ({children,selectedCountry}) => {
                                         dated:0,
                                         country:"Global",
     })
+    
+    // Varaiales for Global History
+    const [globalHistory, setGlobalHistory] = useState({    confirmed:"",
+                                                            recovered:"",
+                                                            deaths:"",
+                                                            Dated:"",
+    })
+
+    // Variables for Country History
+    const [countryHistory, setCountryHistory] = useState({  confirmed:"",
+                                                            recovered:"",
+                                                            deaths:"",
+                                                            Dated:"",
+    })
 
     // useEffect Hooks to use fetch Data for countries list
     useEffect(() => {
@@ -80,12 +94,50 @@ export const Data = ({children,selectedCountry}) => {
         }
     },[selectedCountry]);
 
+    // useEffect Hooks to use fetchData (history)
+    useEffect(() => {
+        if (selectedCountry === "global") {
+            async function fetchAllData() {
+                const response = await fetch(`https://covid19.mathdro.id/api/daily`);
+                const data = await response.json();
+                const infected = (data.map(item=>(item.totalConfirmed)));
+                const recover = (data.map(item=>(item.totalRecovered)));
+                const death = (data.map(item=>(item.deaths.total)));
+                const date = (data.map((item=>(item.reportDate))));
+                setGlobalHistory({ confirmed: `${infected}`,
+                                    recovered: `${recover}`,
+                                    deaths: `${death}`,
+                                    Dated:`${date}`
+                })
+            }
+
+        fetchAllData();
+        }else{
+            async function fetchAllData() {
+                const response = await fetch(`https://api.covid19api.com/total/country/${selectedCountry}`);
+                const data = await response.json();
+                const infected = (data.map(item=>(item.Confirmed)));
+                const recover = (data.map(item=>(item.Recovered)));
+                const death = (data.map(item=>(item.Deaths)));
+                const date = (data.map((item=>(item.Date))));
+                setCountryHistory({ confirmed: `${infected}`,
+                               recovered: `${recover}`,
+                               deaths: `${death}`,
+                               Dated:`${date}`
+                })
+            }
+        fetchAllData();
+        }
+    }, [selectedCountry]);
+
 
     return(
         <DataContext.Provider
             value = {{data,
                         isFetching,
                         fetchedCountries,
+                        globalHistory,
+                        countryHistory,
                       }}>
                 {children}
         </DataContext.Provider>
