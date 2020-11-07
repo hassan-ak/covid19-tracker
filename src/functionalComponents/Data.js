@@ -10,6 +10,9 @@ export const Data = ({children}) => {
     // UseState for if Fetching data
     const [isFetching, setFetching] = useState(false);
 
+    // Usestate for Countries List
+    const [fetchedCountries, setFetchedCountries] = useState([]);
+
     // Define Variables Using useState
     const [data, setData] = useState({  totalConfirmed:0,
                                         totalRecovered:0,
@@ -21,7 +24,17 @@ export const Data = ({children}) => {
                                         country:"Global",
     })
 
-    // useEffect Hooks to use fetchData
+    // useEffect Hooks to use fetch Data for countries list
+    useEffect(() => {
+        async function fetchData() {
+            const response = await fetch('https://api.covid19api.com/summary');
+            const data = await response.json();
+            setFetchedCountries(data.Countries.map(country=>country.Slug));
+        }
+        fetchData();
+    },[setFetchedCountries]);
+
+    // useEffect Hooks to use fetchData (tilldate and today)
     useEffect(() => {
             async function fetchData() {
                 setFetching(true);
@@ -46,6 +59,7 @@ export const Data = ({children}) => {
         <DataContext.Provider
             value = {{data,
                         isFetching,
+                        fetchedCountries,
                       }}>
                 {children}
         </DataContext.Provider>
