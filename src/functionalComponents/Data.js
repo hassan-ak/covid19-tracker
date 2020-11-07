@@ -10,6 +10,9 @@ export const Data = ({children,selectedCountry}) => {
     // UseState for if Fetching data
     const [isFetching, setFetching] = useState(false);
 
+    // UseState for if Fetching history data
+    const [isHistoryFetching, setHistoryFetching] = useState(false);
+
     // Usestate for Countries List
     const [fetchedCountries, setFetchedCountries] = useState([]);
 
@@ -98,6 +101,7 @@ export const Data = ({children,selectedCountry}) => {
     useEffect(() => {
         if (selectedCountry === "global") {
             async function fetchAllData() {
+                setHistoryFetching(true)
                 const response = await fetch(`https://covid19.mathdro.id/api/daily`);
                 const data = await response.json();
                 const infected = (data.map(item=>(item.totalConfirmed)));
@@ -109,11 +113,13 @@ export const Data = ({children,selectedCountry}) => {
                                     deaths: `${death}`,
                                     Dated:`${date}`
                 })
+                setHistoryFetching(false)
             }
 
         fetchAllData();
         }else{
             async function fetchAllData() {
+                setHistoryFetching(true)
                 const response = await fetch(`https://api.covid19api.com/total/country/${selectedCountry}`);
                 const data = await response.json();
                 const infected = (data.map(item=>(item.Confirmed)));
@@ -125,6 +131,7 @@ export const Data = ({children,selectedCountry}) => {
                                deaths: `${death}`,
                                Dated:`${date}`
                 })
+                setHistoryFetching(false)
             }
         fetchAllData();
         }
@@ -133,8 +140,9 @@ export const Data = ({children,selectedCountry}) => {
 
     return(
         <DataContext.Provider
-            value = {{data,
+            value = {{  data,
                         isFetching,
+                        isHistoryFetching,
                         fetchedCountries,
                         globalHistory,
                         countryHistory,

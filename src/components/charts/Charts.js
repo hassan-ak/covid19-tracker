@@ -6,6 +6,7 @@ import { PieChart } from './PieChart';
 import { LineChart } from './LineChart';
 
 export const Charts = () => {
+
     return (
         <div>
             <PieChart></PieChart>

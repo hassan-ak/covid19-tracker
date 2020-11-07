@@ -27,7 +27,7 @@ export const UntilNowCard = () => {
                 <Grid container spacing={3} justify="center">
 
                 {/* Infected Card */}
-                <Grid item xs={8} md={3} component={Card} className="card infected">    
+                <Grid item xs={10} md={3} component={Card} className="card infected">    
                     <CardContent>
                         <Typography color="textSecondary" gutterBottom>Infected</Typography>
                         <Typography variant="h5">Loading...</Typography>
@@ -37,7 +37,7 @@ export const UntilNowCard = () => {
                 </Grid>
 
                 {/* Recovered Card */}
-                <Grid item xs={8} md={3} component={Card} className="card recovered"> 
+                <Grid item xs={10} md={3} component={Card} className="card recovered"> 
                     <CardContent>
                         <Typography color="textSecondary" gutterBottom>Recovered</Typography>
                         <Typography variant="h5">Loading...</Typography>
@@ -47,7 +47,7 @@ export const UntilNowCard = () => {
                 </Grid>
                 
                 {/* Deaths Card */}
-                <Grid item xs={8} md={3} component={Card} className="card deaths"> 
+                <Grid item xs={10} md={3} component={Card} className="card deaths"> 
                     <CardContent>
                         <Typography color="textSecondary" gutterBottom>Deaths</Typography>
                         <Typography variant="h5">Loading...</Typography>
