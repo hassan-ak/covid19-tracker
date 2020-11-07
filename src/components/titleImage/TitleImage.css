@@ -1,0 +1,30 @@
+.imageContainer{
+    min-width: 100vw;
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;   
+}
+
+.image{
+    width: 400px;
+}
+
+@media (max-width: 410px){
+    .image{
+        width: 350px;
+    }
+}
+
+@media (max-width: 360px){
+    .image{
+        width: 300px;
+    }
+}
+
+@media (max-width: 310px){
+    .image{
+        width: 250px;
+    }
+}
